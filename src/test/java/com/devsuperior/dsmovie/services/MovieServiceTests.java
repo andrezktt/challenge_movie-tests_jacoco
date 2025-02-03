@@ -54,6 +54,8 @@ public class MovieServiceTests {
 
 		Mockito.when(repository.findById(existingMovieId)).thenReturn(Optional.of(movie));
 		Mockito.when(repository.findById(nonExistingMovieId)).thenReturn(Optional.empty());
+
+		Mockito.when(repository.save(any())).thenReturn(movie);
 	}
 	
 	@Test
@@ -85,6 +87,10 @@ public class MovieServiceTests {
 
 	@Test
 	public void insertShouldReturnMovieDTO() {
+		MovieDTO result = service.insert(movieDTO);
+
+		Assertions.assertNotNull(result);
+		Assertions.assertEquals(result.getTitle(), movieDTO.getTitle());
 	}
 	
 	@Test
